@@ -9,69 +9,22 @@ import (
 )
 
 func reactPolymer(polymer string) string {
-	newString := polymer
+	newString := ""
 
-	possibilities := []string{
-		"Aa",
-		"Bb",
-		"Cc",
-		"Dd",
-		"Ee",
-		"Ff",
-		"Gg",
-		"Hh",
-		"Ii",
-		"Jj",
-		"Kk",
-		"Ll",
-		"Mm",
-		"Nn",
-		"Oo",
-		"Pp",
-		"Qq",
-		"Rr",
-		"Ss",
-		"Tt",
-		"Uu",
-		"Vv",
-		"Ww",
-		"Xx",
-		"Yy",
-		"Zz",
-		"aA",
-		"bB",
-		"cC",
-		"dD",
-		"eE",
-		"fF",
-		"gG",
-		"hH",
-		"iI",
-		"jJ",
-		"kK",
-		"lL",
-		"mM",
-		"nN",
-		"oO",
-		"pP",
-		"qQ",
-		"rR",
-		"sS",
-		"tT",
-		"uU",
-		"vV",
-		"wW",
-		"xX",
-		"yY",
-		"zZ",
-	}
+	for _, character := range polymer {
+		if len(newString) == 0 {
+			newString = string(character)
+		} else {
+			currentCharacter := string(newString[len(newString)-1])
 
-	for _, possibility := range possibilities {
-		newString = strings.Replace(newString, possibility, "", -1)
-	}
+			characterAsString := string(character)
 
-	if len(polymer) != len(newString) {
-		return reactPolymer(newString)
+			if (characterAsString == strings.ToUpper(characterAsString) && currentCharacter == strings.ToLower(characterAsString)) || (characterAsString == strings.ToLower(characterAsString) && currentCharacter == strings.ToUpper(characterAsString)) {
+				newString = newString[:len(newString)-1]
+			} else {
+				newString += string(character)
+			}
+		}
 	}
 
 	return newString
